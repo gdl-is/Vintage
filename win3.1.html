@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guida: Installare Windows 3.1 su DOSBox</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --accent-color: #0056b3;
+            --card-bg: #ffffff;
+            --link-bg: #e3f2fd;
+            --link-text: #0d47a1;
+            --box-bg: #2d3748;
+            --box-text: #f7fafc;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #1a202c;
+                --text-color: #e2e8f0;
+                --accent-color: #3182ce;
+                --card-bg: #2d3748;
+                --link-bg: #2a4365;
+                --link-text: #90cdf4;
+                --box-bg: #1a202c;
+                --box-text: #e2e8f0;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+        }
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        h2 {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 0.3rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        code {
+            background-color: rgba(0,0,0,0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.9em;
+        }
+        
+        .code-box {
+            width: 100%;
+            background-color: var(--box-bg);
+            color: var(--box-text);
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.95rem;
+            padding: 1rem;
+            border: 1px solid rgba(0,0,0,0.2);
+            border-radius: 6px;
+            box-sizing: border-box;
+            resize: none;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .grid-box {
+            background-color: var(--link-bg);
+            padding: 1.2rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+        }
+        .grid-box h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+        .grid-box p {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        .grid-box a {
+            color: var(--link-text);
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        .grid-box a:hover {
+            text-decoration: underline;
+        }
+
+        .tip-box {
+            background-color: rgba(254, 243, 199, 0.4);
+            border-left: 4px solid #d97706;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+        @media (prefers-color-scheme: dark) {
+            .tip-box {
+                background-color: rgba(217, 119, 6, 0.1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Installare Windows 3.1 su DOSBox</h1>
+    <p>Guida passo-passo per configurare S3Trio, Sound Blaster, Mouse e Tastiera</p>
+</header>
+
+<main>
+
+    <section class="card">
+        <h2>1. Preparazione dei File</h2>
+        <p>Prima di iniziare, crea una cartella sul tuo PC (es. <code>C:\dosbox_c</code>) che fungerà da Hard Disk <code>C:</code> temporaneo per l'emulatore.</p>
+        <ul>
+            <li>Crea una sottocartella <code>C:\dosbox_c\win31_install</code> e copia qui i file di installazione estratti dai dischetti di Windows 3.1.</li>
+            <li>Crea una sottocartella <code>C:\dosbox_c\s3driver</code> dove andrai a inserire i driver per la scheda video.</li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>2. Link Utili e Download</h2>
+        <p>Scarica i file necessari dai seguenti portali storici e ufficiali affidabili:</p>
+        <div class="grid-layout">
+            <div class="grid-box">
+                <h3>Driver Video S3 Trio</h3>
+                <p>Cerca il file <code>rim32.zip</code> (S3 Trio64V2 1.30.05) per Windows 3.x.</p>
+                <a href="https://classicdosgames.com" target="_blank">Vai a Classic DOS Games &rarr;</a>
+            </div>
+            <div class="grid-box">
+                <h3>Sito Ufficiale DOSBox</h3>
+                <p>Scarica l'ultima versione stabile dell'emulatore per il tuo sistema.</p>
+                <a href="https://dosbox.com" target="_blank">Vai a DOSBox.com &rarr;</a>
+            </div>
+            <div class="grid-box">
+                <h3>Vetusware (Archivio)</h3>
+                <p>Il più grande database di abbandonware per reperire utility storiche.</p>
+                <a href="https://vetusware.com" target="_blank">Vai a Vetusware &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>3. Configurazione di DOSBox</h2>
+        <p>Modifica il file di configurazione di DOSBox (<code>dosbox.conf</code>). Fai un clic nel box sotto per selezionare il testo da copiare:</p>
+        <textarea class="code-box" rows="12" readonly onclick="this.select()">[sdl]
+autolock=true
+
+[dosbox]
+machine=svga_s3
+
+[sbgui]
+sbtype=sb16
+sbbase=220
+irq=7
+dma=1
+hdma=5
+sbmixer=true</textarea>
+    </section>
+
+    <section class="card">
+        <h2>4. Installazione di Windows 3.1</h2>
+        <p>Avvia DOSBox ed esegui i comandi presenti nel riquadro sottostante per avviare il setup grafico:</p>
+        <textarea class="code-box" rows="5" readonly onclick="this.select()">mount c C:\dosbox_c
+c:
+cd win31_install
+setup.exe</textarea>
+        <p>Segui le istruzioni a schermo. Il <span class="highlight">mouse</span> e la <span class="highlight">tastiera</span> funzioneranno automaticamente senza bisogno di driver aggiuntivi grazie all'integrazione nativa di DOSBox.</p>
+    </section>
+
+    <section class="card">
+        <h2>5. Installazione Driver Video S3 Trio</h2>
+        <p>Al termine dell'installazione, chiudi Windows 3.1 per tornare al prompt di DOS (<code>C:\&gt;</code>) e segui questi passi:</p>
+        <ol>
+            <li>Digita <code>cd windows</code> e poi <code>setup.exe</code> (avvierai il setup di configurazione in modalità testo).</li>
+            <li>Sposta il cursore su <span class="highlight">Display</span> e premi Invio.</li>
+            <li>Scorri fino in fondo alla lista, seleziona <code>Other (Requires disk...)</code> e premi Invio.</li>
+            <li>Inserisci il percorso dei driver S3 estratti in precedenza: <code>C:\s3driver</code> e premi Invio.</li>
+            <li>Seleziona la risoluzione desiderata (scelta consigliata per DOSBox: <span class="highlight">800x600 256 Colors (Small Fonts)</span>).</li>
+            <li>Conferma premendo Invio per copiare i file, salvare e uscire.</li>
+        </ol>
+    </section>
+
+    <section class="card">
+        <h2>6. Configurazione Audio (Sound Blaster 16)</h2>
+        <p>Windows 3.1 include già i driver nativi per la Sound Blaster. All'interno dell'interfaccia di Windows:</p>
+        <ol>
+            <li>Apri il gruppo <code>Main</code> (Principale) e fai doppio clic su <code>Control Panel</code> (Pannello di Controllo).</li>
+            <li>Apri la voce <code>Drivers</code> e clicca sul pulsante <code>Add</code> (Aggiungi).</li>
+            <li>Seleziona <code>Creative Labs Sound Blaster 16 Or AWE32</code> dalla lista proposta.</li>
+            <li>Configura i parametri hardware inseriti nel file .conf: <span class="highlight">Port: 220</span>, <span class="highlight">IRQ: 7</span>, <span class="highlight">DMA: 1</span>.</li>
+            <li>Riavvia Windows 3.1 per applicare i driver audio.</li>
+        </ol>
+    </section>
+Control Panel</code> (Pannello di Controllo).</li>
+            <li>Apri la voce <code>Drivers</code> e clicca sul pulsante <code>Add</code> (Aggiungi).</li>
+            <li>Seleziona <code>Creative Labs Sound Blaster 16 Or AWE32</code> dalla lista proposta.</li>
+            <li>Configura i parametri hardware inseriti nel file .conf: <span class="highlight">Port: 220</span>, <span class="highlight">IRQ: 7</span>, <span class="highlight">DMA: 1</span>.</li>
+            <li>Riavvia Windows 3.1 per applicare i driver audio.</li>
+        </ol>
+    </section>
+
+    <section class="card">
+        <h2>7. Automazione Avvio Rapido</h2>
+        <p>Per fare in modo che Windows 3.1 si avvii automaticamente, incolla queste righe nella sezione <code>[autoexec]</code> del tuo file di configurazione:</p>
+        <textarea class="code-box" rows="6" readonly onclick="this.select()">[autoexec]
+mount c C:\dosbox_c
+c:
+cd windows
+win</textarea>
+    </section>
+
+    <section class="card">
+        <h2>8. Giochi dell'Epoca Consigliati</h2>
+        <p>Windows 3.1 ha sdoganato il gaming su interfaccia grafica a 16-bit. Ecco alcuni titoli storici perfetti per questa configurazione S3 Trio:</p>
+        <div class="grid-layout">
+            <div class="grid-box">
+                <h3>Myst (1993)</h3>
+                <p>La pietra miliare dei punta e clicca in 3D pre-renderizzato. Sfrutta al massimo la palette a 256 colori della S3 Trio.</p>
+            </div>
+            <div class="grid-box">
+                <h3>SimCity 2000 (1993)</h3>
+                <p>La versione per Windows offre una risoluzione maggiore e una gestione delle finestre più comoda rispetto alla versione DOS pura.</p>
+            </div>
+            <div class="grid-box">
+                <h3>Microsoft Entertainment Pack</h3>
+                <p>La raccolta ufficiale che include classici immortali come SkiFree, Rodent's Revenge, Chips Challenge e il mitico Campo Minato.</p>
+            </div>
+            <div class="grid-box">
+                <h3>Castle of the Winds (1992)</h3>
+                <p>Un fantastico GdR roguelike con grafica totalmente basata sulle icone e le finestre native di Windows 3.1.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>9. Software di Produttività Storici</h2>
+        <p>I programmi che hanno trasformato il PC da macchina per appassionati a strumento da ufficio indispensabile:</p>
+        <div class="grid-layout">
+            <div class="grid-box">
+                <h3>Microsoft Office 4.3</h3>
+                <p>L'ultima suite per Windows 3.1. Contiene versioni storiche di Word 6.0, Excel 5.0 e PowerPoint 4.0, gettando le basi dell'office automation moderna.</p>
+            </div>
+            <div class="grid-box">
+                <h3>Lotus 1-2-3 (v4/v5)</h3>
+                <p>Il foglio elettronico che dominava il mercato aziendale prima dell'ascesa di Excel. La versione per Windows introdusse potenti menu grafici.</p>
+            </div>
+            <div class="grid-box">
+                <h3>WordPerfect 6.1</h3>
+                <p>Il re assoluto della videoscrittura professionale dei primi anni '90, celebre per la sua gestione avanzata dei layout di pagina e dei documenti legali.</p>
+            </div>
+            <div class="grid-box">
+                <h3>WinZip 5.6 / 6.0</h3>
+                <p>L'utility indispensabile dell'epoca a 16-bit per comprimere i file in formato ZIP e farli entrare nei classici dischetti da 3.5 pollici.</p>
+            </div>
+            <div class="grid-box">
+                <h3>Calmira Shell</h3>
+                <p>Un software eccezionale che sostituisce l'interfaccia standard del Program Manager trasformandola in una fedele riproduzione del desktop di Windows 95 o XP.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>10. Risoluzione Problemi e Suggerimenti</h2>
+        <div class="tip-box">
+            <strong>Cattura e Sblocco del Mouse:</strong> Se il cursore del mouse scappa dalla finestra di DOSBox o non è sincronizzato, premi la combinazione di tasti <code>CTRL + F10</code> per bloccarlo permanentemente dentro l'emulatore. Premi la stessa combinazione per liberarlo.
+        </div>
+        <div class="tip-box">
+            <strong>Audio Gracchiante o Rallentato:</strong> Se la Sound Blaster gracchia, aumenta i cicli della CPU di DOSBox premendo <code>CTRL + F12</code> durante l'emulazione, oppure imposta <code>cycles=max</code> nella sezione <code>[cpu]</code> del tuo file di configurazione.
+        </div>
+        <div class="tip-box">
+            <strong>Layout Tastiera Italiana:</strong> Se i caratteri speciali non corrispondono alla tua tastiera, assicurati di inserire il comando <code>keyb it</code> subito prima di avviare Windows (nella sezione autoexec).
+        </div>
+    </section>
+
+</main>
+
+</body>
+</html>
